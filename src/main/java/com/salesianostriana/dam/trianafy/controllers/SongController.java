@@ -1,7 +1,9 @@
 package com.salesianostriana.dam.trianafy.controllers;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.salesianostriana.dam.trianafy.Dtos.DtoCreateSong;
 import com.salesianostriana.dam.trianafy.Dtos.DtoSongConverter;
+import com.salesianostriana.dam.trianafy.Dtos.JsonView.SongViews;
 import com.salesianostriana.dam.trianafy.model.Artist;
 import com.salesianostriana.dam.trianafy.model.Playlist;
 import com.salesianostriana.dam.trianafy.model.Song;
@@ -44,6 +46,7 @@ public class SongController {
                     description = "No se ha encontrado ninguna lista con canciones",
                     content = @Content),
     })
+    @JsonView(SongViews.GetSongPublic.class)
     @GetMapping("/song/")
     public ResponseEntity<List<Song>> findAll() {
         List<Song> songList = serv.findAll();
@@ -89,6 +92,7 @@ public class SongController {
                     description = "Hay un error en los datos o en la petición",
                     content = @Content),
     })
+    @JsonView(SongViews.CreateSongPublic.class)
     @PostMapping("/song/")
     public ResponseEntity<Song> addNew(@RequestBody DtoCreateSong song) {
 
